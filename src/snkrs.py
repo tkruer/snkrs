@@ -4,8 +4,7 @@ from config import config
 import json
 import time
 
-class Snkrs(object):
-
+class Snkrs():
     def __init__(self, taskNumber, taskData):
         self.taskNumber = taskNumber
         self.taskData = taskData
@@ -23,46 +22,50 @@ class Snkrs(object):
         def start(self):
             s = requests.Session()
 
-            check_config = True
+        while True:
+            try:
+                lines = open('proxies.txt').read().splitlines()
+                proxy = random.choice(lines)
+                split = proxy.split(':')
+                good_format = (f'{split[2]}:{split[3]}@{split[0]}:{split[1]}')
+                http_proxy = f"{good_format}"
+                https_proxy = f"{good_format}"
+                proxyDict = {
+                    "http": f'http://{http_proxy}',
+                    "https": f'http://{https_proxy}'}
+            except Exception as e:
+                print(e)
+                log('Error getting proxies, you can only run with proxies, will be fixed soon', 196)
+                time.sleep(10)
+                exit()
+            else:
+                break
 
-            while check_config == True:
-                if self.email == '':
-                    log.log(f'Email is not set in accounts.csv', self.taskNumber)
-                    check_config = False
-                elif self.password == '':
-                    log.log(f'Password is not set in accounts.csv', self.taskNumber)
-                    check_config = False
-                elif self.sku == '':
-                    log.log(f'SKU is not set in accounts.csv', self.taskNumber)
-                    check_config = False
-                elif self.size == '':
-                    log.log(f'Size is not set in accounts.csv', self.taskNumber)
-                    check_config = False
-                elif self.proxy == '':
-                    log.log(f'Proxy is not set in proxies.txt', self.taskNumber)
-                    check_config = False
-                elif self.delay == '':
-                    log.log(f'Delay is not set in config.json', self.taskNumber)
-                    check_config = False
-                elif self.webhook == '':
-                    log.log(f'Webhook is not set in config.json', self.taskNumber)
-                    check_config = False
-                elif self.akamaiAPIKEY == '':
-                    log.log(f'Akamai API Key is not set in config.json', self.taskNumber)
-                    check_config = False
-                elif self.akamaiAPIURL == '':
-                    log.log(f'Akamai API URL is not set in config.json', self.taskNumber)
-                    check_config = False
+
+            while True:
+                try:
+
+                except Exception as e:
+                    print(e)
+                    time.sleep(delay)
+                if response.status_code == 200:
+                    log('Succesfully got raffle page', 3)
+                    break
+
+            while True:
+                try:
+
+                except Exception as e:
+                    print(e)
+                    time.sleep(delay)
                 else:
-                    check_config = False
-                    log.log(f'All config values are set', self.taskNumber)
+                    try:
 
-            start_task = True
+                    except Exception as e:
+                        print(e)
+                        time.sleep(delay)
 
-            log.log(self.taskNumber, f'Starting Task...')
 
-            while start_task == True:
-                print('test')
 
 
 
