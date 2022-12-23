@@ -1,13 +1,17 @@
 import requests
 import log
 
-def send_webhook(webhook: str, store: str, sku: str, size: str, mode: str, email: str):
+def send_webhook(webhook: str, event: str, store: str, sku: str, size: str, mode: str, email: str):
     data = {
       "content": "",
       "embeds": [
         {
           "color": 7995224,
           "fields": [
+            {
+              "name": "Event",
+              "value": f"`{event}`"
+            },
             {
               "name": "Store",
               "value": f"`{store}`"

@@ -12,6 +12,12 @@ def getSettings():
         akamaiAPIURL = settings['akamaiAPIURL']
         return webhook, delay, akamaiAPIKEY, akamaiAPIURL
 
+def get_webhook():
+    with open('config.json', 'r') as s:
+        settings = json.load(s)
+        webhook = settings['webhook']
+    return webhook
+
 def getAccounts():
     with open('accounts.csv', 'r') as a:
         reader = csv.reader(a)
